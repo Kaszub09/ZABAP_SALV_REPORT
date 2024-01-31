@@ -32,19 +32,19 @@ CLASS zcl_zabap_salv_report DEFINITION
 
     METHODS get_ref_to_cell_value IMPORTING !row TYPE salv_de_row column TYPE salv_de_column RETURNING VALUE(retval) TYPE REF TO data RAISING cx_sy_tab_range_out_of_bounds.
     "EVENT HANDLERS
-    "! <p class="shorttext synchronized" lang="en">Redefine inside class inheriting from <em>zcl_zabap_salv_report</em> if needed</p>
+    "! <p class="shorttext synchronized" lang="en">Redefine when inheriting from <em>zcl_zabap_salv_report</em></p>
     METHODS on_before_salv_function FOR EVENT before_salv_function OF cl_salv_events_table IMPORTING e_salv_function.
-    "! <p class="shorttext synchronized" lang="en">Redefine inside class inheriting from <em>zcl_zabap_salv_report</em> if needed</p>
+    "! <p class="shorttext synchronized" lang="en">Redefine when inheriting from <em>zcl_zabap_salv_report</em></p>
     METHODS on_after_salv_function FOR EVENT before_salv_function OF cl_salv_events_table IMPORTING e_salv_function.
-    "! <p class="shorttext synchronized" lang="en">Redefine inside class inheriting from <em>zcl_zabap_salv_report</em> if needed</p>
+    "! <p class="shorttext synchronized" lang="en">Redefine when inheriting from <em>zcl_zabap_salv_report</em></p>
     METHODS on_added_function FOR EVENT added_function OF cl_salv_events_table IMPORTING e_salv_function.
-    "! <p class="shorttext synchronized" lang="en">Redefine inside class inheriting from <em>zcl_zabap_salv_report</em> if needed</p>
+    "! <p class="shorttext synchronized" lang="en">Redefine when inheriting from <em>zcl_zabap_salv_report</em></p>
     METHODS on_top_of_page FOR EVENT top_of_page OF cl_salv_events_table IMPORTING r_top_of_page page table_index.
-    "! <p class="shorttext synchronized" lang="en">Redefine inside class inheriting from <em>zcl_zabap_salv_report</em> if needed</p>
+    "! <p class="shorttext synchronized" lang="en">Redefine when inheriting from <em>zcl_zabap_salv_report</em></p>
     METHODS on_end_of_page FOR EVENT end_of_page OF cl_salv_events_table IMPORTING r_end_of_page page.
-    "! <p class="shorttext synchronized" lang="en">Redefine inside class inheriting from <em>zcl_zabap_salv_report</em> if needed</p>
+    "! <p class="shorttext synchronized" lang="en">Redefine when inheriting from <em>zcl_zabap_salv_report</em></p>
     METHODS on_double_click FOR EVENT double_click OF cl_salv_events_table IMPORTING row column.
-    "! <p class="shorttext synchronized" lang="en">Redefine inside class inheriting from <em>zcl_zabap_salv_report</em> if needed</p>
+    "! <p class="shorttext synchronized" lang="en">Redefine when inheriting from <em>zcl_zabap_salv_report</em></p>
     METHODS on_link_click FOR EVENT link_click OF cl_salv_events_table IMPORTING row column.
     "EVENTS HANDLERS END
 
