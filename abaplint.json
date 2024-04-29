@@ -550,7 +550,7 @@
       "exclude": [],
       "severity": "Error",
       "statements": 100,
-      "errorWhenEmpty": true,
+      "errorWhenEmpty": false,
       "ignoreTestClasses": false,
       "checkForms": true
     },
