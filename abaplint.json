@@ -32,7 +32,7 @@
     },
     "abapdoc": {
       "exclude": [],
-      "severity": "Error",
+      "severity": "Info",
       "checkLocal": false,
       "classDefinition": false,
       "interfaceDefinition": false,
@@ -211,10 +211,6 @@
       "dynamicSQL": true
     },
     "db_operation_in_loop": {
-      "exclude": [],
-      "severity": "Error"
-    },
-    "definitions_top": {
       "exclude": [],
       "severity": "Error"
     },
