@@ -20,7 +20,7 @@
     }
   ],
   "syntax": {
-    "version": "v750",
+    "version": "v758",
     "errorNamespace": "^(Z|Y|LCL_|TY_|LIF_)",
     "globalConstants": [],
     "globalMacros": []
@@ -39,8 +39,13 @@
       "ignoreTestClasses": true
     },
     "align_parameters": {
-      "exclude": [],
+      "exclude": ["*"],
       "severity": "Error"
+    },
+    "align_type_expressions": {
+      "exclude": [],
+      "severity": "Error",
+      "ignoreExceptions": true
     },
     "allowed_object_naming": {
       "exclude": [],
@@ -155,6 +160,19 @@
       "exclude": [],
       "severity": "Error"
     },
+    "class_attribute_names": {
+      "exclude": [],
+      "severity": "Error",
+      "patternKind": "required",
+      "ignoreNames": [],
+      "ignorePatterns": [],
+      "ignoreExceptions": true,
+      "ignoreLocal": true,
+      "ignoreInterfaces": false,
+      "statics": "^G._.+$",
+      "instance": "^M._.+$",
+      "constants": ""
+    },
     "classic_exceptions_overlap": {
       "exclude": [],
       "severity": "Error"
@@ -215,6 +233,10 @@
       "dynamicSQL": true
     },
     "db_operation_in_loop": {
+      "exclude": [],
+      "severity": "Error"
+    },
+    "definitions_top": {
       "exclude": [],
       "severity": "Error"
     },
@@ -466,6 +488,12 @@
       "exclude": [],
       "severity": "Error"
     },
+    "in_statement_indentation": {
+      "exclude": [],
+      "severity": "Error",
+      "blockStatements": 2,
+      "ignoreExceptions": true
+    },
     "indentation": {
       "exclude": [],
       "severity": "Error",
@@ -506,9 +534,19 @@
       "ignoreGlobalClassBoundaries": false,
       "ignoreKeywords": []
     },
+    "line_break_multiple_parameters": {
+      "exclude": [],
+      "severity": "Error",
+      "count": 1
+    },
     "line_break_style": {
       "exclude": [],
       "severity": "Error"
+    },
+    "line_length": {
+      "exclude": [],
+      "severity": "Error",
+      "length": 120
     },
     "line_only_punc": {
       "exclude": [],
@@ -528,6 +566,16 @@
     "local_testclass_consistency": {
       "exclude": [],
       "severity": "Error"
+    },
+    "local_variable_names": {
+      "exclude": [],
+      "severity": "Error",
+      "patternKind": "required",
+      "ignoreNames": [],
+      "ignorePatterns": [],
+      "expectedData": "^L._.+$",
+      "expectedConstant": "^LC_.+$",
+      "expectedFS": "^<L._.+>$"
     },
     "main_file_contents": {
       "exclude": [],
