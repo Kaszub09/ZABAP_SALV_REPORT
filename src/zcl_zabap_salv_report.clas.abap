@@ -113,9 +113,10 @@ CLASS zcl_zabap_salv_report IMPLEMENTATION.
   METHOD initialise_alv.
     "Need empty table for cl_salv_table factory so you can use f4 layout selection
     "Table must be of structured type, throws error otherwise
-    TYPES: BEGIN OF t_dummy,
-             dummy TYPE i,
-           END OF t_dummy.
+    TYPES:
+      BEGIN OF t_dummy,
+        dummy TYPE i,
+      END OF t_dummy.
 
     CREATE DATA data_table_ref TYPE TABLE OF t_dummy.
     FIELD-SYMBOLS <data_table> TYPE STANDARD TABLE.
