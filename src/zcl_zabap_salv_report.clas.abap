@@ -12,11 +12,11 @@ CLASS zcl_zabap_salv_report DEFINITION
     "! @parameter records_count | <p class="shorttext synchronized" lang="en">Leave 0 to not display progress circle</p>
     METHODS set_progress_bar IMPORTING text TYPE string DEFAULT '' current_record TYPE i DEFAULT 0 records_count TYPE i DEFAULT 0.
     "! <p class="shorttext synchronized" lang="en">Table with data must be assigned before calling display_data</p>
-    "! @parameter create_table_copy | <p class="shorttext synchronized" lang="en">Set abap_true if table is freed from memory after this function. </p>
-    "! E.g. you had <em>DATA(data_table) = ...</em> inside method/form before calling this function with data_table and not calling <em>display_data</em> before exiting method/form.
+    "! @parameter create_table_copy | <p class="shorttext synchronized" lang="en">Set abap_true if table is freed from memory after this f...</p>
+    "! ...unction. E.g. you had <em>DATA(data_table) = ...</em> inside method/form before calling this function with data_table and not calling <em>display_data</em> before exiting method/form.
     "! @parameter data_table | <p class="shorttext synchronized" lang="en">Table with data to display</p>
     METHODS set_data IMPORTING create_table_copy TYPE abap_bool DEFAULT 'X' CHANGING data_table TYPE STANDARD TABLE RAISING cx_salv_no_new_data_allowed.
-    "! @parameter layout_name | <p class="shorttext synchronized" lang="en">Data table must be assigned using <em>SET_DATA</em> before display</p>
+    "! @parameter layout_name | <p class="shorttext synchronized" lang="en">Data must be assigned with <em>SET_DATA</em> before display</p>
     METHODS display_data IMPORTING layout_name TYPE slis_vari OPTIONAL.
     METHODS get_layout_from_f4_selection RETURNING VALUE(retval) TYPE slis_vari.
     METHODS set_fixed_column_text IMPORTING column TYPE lvc_fname text TYPE scrtext_l output_length TYPE lvc_outlen OPTIONAL.
