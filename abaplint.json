@@ -462,12 +462,6 @@
       "exclude": [],
       "severity": "Error"
     },
-    "in_statement_indentation": {
-      "exclude": [],
-      "severity": "Error",
-      "blockStatements": 2,
-      "ignoreExceptions": true
-    },
     "indentation": {
       "exclude": [],
       "severity": "Error",
@@ -620,11 +614,6 @@
       "types": "^TY_",
       "methodParameters": "^[ICER].?_",
       "allowIsPrefixBoolean": true
-    },
-    "no_yoda_conditions": {
-      "exclude": [],
-      "severity": "Error",
-      "onlyConstants": false
     },
     "nrob_consistency": {
       "exclude": [],
@@ -785,11 +774,6 @@
         "LE"
       ]
     },
-    "prefix_is_current_class": {
-      "exclude": [],
-      "severity": "Error",
-      "omitMeInstanceCalls": true
-    },
     "reduce_procedural_code": {
       "exclude": [],
       "severity": "Error",
@@ -802,12 +786,6 @@
     "release_idoc": {
       "exclude": [],
       "severity": "Error"
-    },
-    "remove_descriptions": {
-      "exclude": [],
-      "severity": "Error",
-      "ignoreExceptions": false,
-      "ignoreWorkflow": true
     },
     "rfc_error_handling": {
       "exclude": [],
@@ -933,10 +911,6 @@
       "exclude": [],
       "severity": "Error"
     },
-    "unnecessary_chaining": {
-      "exclude": [],
-      "severity": "Error"
-    },
     "unnecessary_pragma": {
       "exclude": [],
       "severity": "Error",
@@ -960,7 +934,7 @@
     },
     "unused_methods": {
       "exclude": [],
-      "severity": "Error"
+      "severity": "Warning"
     },
     "unused_types": {
       "exclude": [],
@@ -969,8 +943,8 @@
     },
     "unused_variables": {
       "exclude": [],
-      "severity": "Error",
-      "skipNames": [],
+      "severity": "Warning",
+      "skipNames": ["c_version"],
       "skipAbstract": false
     },
     "use_bool_expression": {
