@@ -114,7 +114,7 @@
     },
     "check_comments": {
       "exclude": [],
-      "severity": "Error",
+      "severity": "Warning",
       "allowEndOfLine": false
     },
     "check_ddic": {
@@ -127,7 +127,7 @@
     },
     "check_subrc": {
       "exclude": [],
-      "severity": "Error",
+      "severity": "Warning",
       "openDataset": true,
       "authorityCheck": true,
       "selectSingle": true,
@@ -512,19 +512,9 @@
       "ignoreGlobalClassBoundaries": false,
       "ignoreKeywords": []
     },
-    "line_break_multiple_parameters": {
-      "exclude": [],
-      "severity": "Error",
-      "count": 1
-    },
     "line_break_style": {
       "exclude": [],
       "severity": "Error"
-    },
-    "line_length": {
-      "exclude": [],
-      "severity": "Error",
-      "length": 120
     },
     "line_only_punc": {
       "exclude": [],
@@ -550,10 +540,6 @@
       "severity": "Error"
     },
     "many_parentheses": {
-      "exclude": [],
-      "severity": "Error"
-    },
-    "max_one_method_parameter_per_line": {
       "exclude": [],
       "severity": "Error"
     },
@@ -638,12 +624,6 @@
       "types": "^TY_",
       "methodParameters": "^[ICER].?_",
       "allowIsPrefixBoolean": true
-    },
-    "no_public_attributes": {
-      "exclude": [],
-      "severity": "Error",
-      "allowReadOnly": false,
-      "ignoreTestClasses": false
     },
     "no_yoda_conditions": {
       "exclude": [],
@@ -759,10 +739,6 @@
       "severity": "Error"
     },
     "prefer_inline": {
-      "exclude": [],
-      "severity": "Error"
-    },
-    "prefer_is_not": {
       "exclude": [],
       "severity": "Error"
     },
