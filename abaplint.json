@@ -899,7 +899,7 @@
     "types_naming": {
       "exclude": [],
       "severity": "Error",
-      "pattern": "^TY_.+$"
+      "pattern": "^T[T]{0,1}_.+$"
     },
     "uncaught_exception": {
       "exclude": [],
