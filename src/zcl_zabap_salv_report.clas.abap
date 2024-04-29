@@ -75,7 +75,7 @@ CLASS zcl_zabap_salv_report IMPLEMENTATION.
   METHOD enable_layouts.
     alv_table->get_layout( )->set_key( layout_key ).
     alv_table->get_layout( )->set_save_restriction( if_salv_c_layout=>restrict_none ).
-    alv_table->get_layout( )->set_default( abap_true ). "Enables to save layout as default
+    alv_table->get_layout( )->set_default( abap_true  ). "Enables to save layout as default
   ENDMETHOD.
 
   METHOD format_alv_table.
