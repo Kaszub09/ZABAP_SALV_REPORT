@@ -38,10 +38,6 @@
       "interfaceDefinition": false,
       "ignoreTestClasses": true
     },
-    "align_parameters": {
-      "exclude": ["*"],
-      "severity": "Error"
-    },
     "allowed_object_naming": {
       "exclude": [],
       "severity": "Error"
