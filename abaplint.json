@@ -20,7 +20,7 @@
     }
   ],
   "syntax": {
-    "version": "v758",
+    "version": "v750",
     "errorNamespace": "^(Z|Y|LCL_|TY_|LIF_)",
     "globalConstants": [],
     "globalMacros": []
@@ -150,19 +150,6 @@
     "check_transformation_exists": {
       "exclude": [],
       "severity": "Error"
-    },
-    "class_attribute_names": {
-      "exclude": [],
-      "severity": "Error",
-      "patternKind": "required",
-      "ignoreNames": [],
-      "ignorePatterns": [],
-      "ignoreExceptions": true,
-      "ignoreLocal": true,
-      "ignoreInterfaces": false,
-      "statics": "^G._.+$",
-      "instance": "^M._.+$",
-      "constants": ""
     },
     "classic_exceptions_overlap": {
       "exclude": [],
@@ -558,16 +545,6 @@
       "exclude": [],
       "severity": "Error"
     },
-    "local_variable_names": {
-      "exclude": [],
-      "severity": "Error",
-      "patternKind": "required",
-      "ignoreNames": [],
-      "ignorePatterns": [],
-      "expectedData": "^L._.+$",
-      "expectedConstant": "^LC_.+$",
-      "expectedFS": "^<L._.+>$"
-    },
     "main_file_contents": {
       "exclude": [],
       "severity": "Error"
@@ -604,18 +581,6 @@
     "method_overwrites_builtin": {
       "exclude": [],
       "severity": "Error"
-    },
-    "method_parameter_names": {
-      "exclude": [],
-      "severity": "Error",
-      "patternKind": "required",
-      "ignoreNames": [],
-      "ignorePatterns": [],
-      "ignoreExceptions": true,
-      "importing": "^I._.+$",
-      "returning": "^R._.+$",
-      "changing": "^C._.+$",
-      "exporting": "^E._.+$"
     },
     "mix_returning": {
       "exclude": [],
@@ -900,8 +865,7 @@
       "ignoreNames": [],
       "ignorePatterns": [],
       "parameter": "^P_.+$",
-      "selectOption": "^S_.+$",
-      "screenElement": "^SC_.+$"
+      "selectOption": "^S_.+$"
     },
     "sequential_blank": {
       "exclude": [],
