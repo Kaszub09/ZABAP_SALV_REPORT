@@ -42,11 +42,6 @@
       "exclude": ["*"],
       "severity": "Error"
     },
-    "align_type_expressions": {
-      "exclude": [],
-      "severity": "Error",
-      "ignoreExceptions": true
-    },
     "allowed_object_naming": {
       "exclude": [],
       "severity": "Error"
