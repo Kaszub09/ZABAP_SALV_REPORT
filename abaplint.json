@@ -610,7 +610,7 @@
       "data": "^[LGM].?_",
       "statics": "^S.?_",
       "fieldSymbols": "^<[LGM].?_",
-      "constants": "^[LGM]?C.?_",
+      "constants": "^[LGM]?_",
       "types": "^TY_",
       "methodParameters": "^[ICER].?_",
       "allowIsPrefixBoolean": true
