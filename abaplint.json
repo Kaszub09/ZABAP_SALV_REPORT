@@ -88,21 +88,6 @@
       "exclude": [],
       "severity": "Error"
     },
-    "chain_mainly_declarations": {
-      "exclude": [],
-      "severity": "Error",
-      "definitions": true,
-      "write": true,
-      "move": true,
-      "refresh": true,
-      "unassign": true,
-      "clear": true,
-      "hide": true,
-      "free": true,
-      "include": true,
-      "check": true,
-      "sort": true
-    },
     "change_if_to_case": {
       "exclude": [],
       "severity": "Error",
@@ -111,11 +96,6 @@
     "check_abstract": {
       "exclude": [],
       "severity": "Error"
-    },
-    "check_comments": {
-      "exclude": [],
-      "severity": "Warning",
-      "allowEndOfLine": false
     },
     "check_ddic": {
       "exclude": [],
@@ -155,10 +135,6 @@
       "exclude": [],
       "severity": "Error"
     },
-    "cloud_types": {
-      "exclude": [],
-      "severity": "Error"
-    },
     "colon_missing_space": {
       "exclude": [],
       "severity": "Error"
@@ -177,11 +153,6 @@
       "exclude": [],
       "severity": "Error"
     },
-    "contains_tab": {
-      "exclude": [],
-      "severity": "Error",
-      "spaces": 1
-    },
     "cyclic_oo": {
       "exclude": [],
       "severity": "Error",
@@ -196,7 +167,7 @@
     },
     "dangerous_statement": {
       "exclude": [],
-      "severity": "Error",
+      "severity": "Warning",
       "execSQL": true,
       "kernelCall": true,
       "systemCall": true,
@@ -226,15 +197,7 @@
       "endParen": true,
       "afterColon": true
     },
-    "downport": {
-      "exclude": [],
-      "severity": "Error"
-    },
     "dynpro_checks": {
-      "exclude": [],
-      "severity": "Error"
-    },
-    "easy_to_find_messages": {
       "exclude": [],
       "severity": "Error"
     },
@@ -462,11 +425,17 @@
       "exclude": [],
       "severity": "Error"
     },
+    "in_statement_indentation":{
+  "exclude": [],
+  "severity": "Error",
+  "blockStatements": -2,
+  "ignoreExceptions": true
+},
     "indentation": {
       "exclude": [],
       "severity": "Error",
       "ignoreExceptions": true,
-      "alignTryCatch": false,
+      "alignTryCatch": true,
       "selectionScreenBlockIndentation": false,
       "globalClassSkipFirst": false,
       "ignoreGlobalClassDefinition": false,
@@ -610,7 +579,6 @@
       "data": "^[LGM].?_",
       "statics": "^S.?_",
       "fieldSymbols": "^<[LGM].?_",
-      "constants": "^[LGM]?_",
       "types": "^TY_",
       "methodParameters": "^[ICER].?_",
       "allowIsPrefixBoolean": true
@@ -791,22 +759,12 @@
       "exclude": [],
       "severity": "Error"
     },
-    "select_add_order_by": {
-      "exclude": [],
-      "severity": "Error",
-      "skipForAllEntries": false
-    },
     "select_performance": {
       "exclude": [],
       "severity": "Error",
       "endSelect": true,
       "selectStar": true,
       "starOkayIfFewColumns": 10
-    },
-    "select_single_full_key": {
-      "exclude": [],
-      "severity": "Error",
-      "allowPseudo": true
     },
     "selection_screen_naming": {
       "exclude": [],
