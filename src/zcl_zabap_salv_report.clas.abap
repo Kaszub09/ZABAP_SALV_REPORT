@@ -5,19 +5,23 @@ CLASS zcl_zabap_salv_report DEFINITION
   PUBLIC SECTION.
     DATA alv_table TYPE REF TO cl_salv_table READ-ONLY.
 
-    "! @parameter report_id | <p class="shorttext synchronized" lang="en">Needed for key for saving layouts</p>
-    "! @parameter handle | <p class="shorttext synchronized" lang="en">Needed if you need more than one table inside single report</p>
-    METHODS constructor IMPORTING report_id TYPE sy-repid handle TYPE slis_handl OPTIONAL RAISING cx_salv_msg.
+    "! @parameter layout_key | <p class="shorttext synchronized" lang="en">Needed for saving/displaying layouts</p>
+    "! @parameter container | <p class="shorttext synchronized" lang="en">Usually instance of CL_GUI_CUSTOM_CONTAINER if needed</p>
+    "! @parameter report_id | <p class="shorttext synchronized" lang="en">Left for backwards compatibility. Use layout_key parameter.</p>
+    "! @parameter handle | <p class="shorttext synchronized" lang="en">Left for backwards compatibility. Use layout_key parameter.</p>
+    METHODS constructor IMPORTING layout_key TYPE salv_s_layout_key OPTIONAL container TYPE REF TO cl_gui_container OPTIONAL
+                                  report_id TYPE sy-repid OPTIONAL handle TYPE slis_handl OPTIONAL RAISING cx_salv_msg.
     "! @parameter text | <p class="shorttext synchronized" lang="en">If left empty last text is displayed</p>
     "! @parameter records_count | <p class="shorttext synchronized" lang="en">Leave 0 to not display progress circle</p>
     METHODS set_progress_bar IMPORTING text TYPE string DEFAULT '' current_record TYPE i DEFAULT 0 records_count TYPE i DEFAULT 0.
     "! <p class="shorttext synchronized" lang="en">Table with data must be assigned before calling display_data</p>
-    "! @parameter create_table_copy | <p class="shorttext synchronized" lang="en">Set abap_true if table is freed from memory after this f...</p>
-    "! ...unction. E.g. you had <em>DATA(data_table) = ...</em> inside method/form before calling this function with data_table and not calling <em>display_data</em> before exiting method/form.
+    "! @parameter create_table_copy | <p class="shorttext synchronized" lang="en">Set abap_true if table is freed from memory after this...</p>
+    "! ...function. E.g. you had <em>DATA(data_table) = ...</em> inside method/form before calling this function with data_table and not calling <em>display_data</em> before exiting method/form.
     "! @parameter data_table | <p class="shorttext synchronized" lang="en">Table with data to display</p>
     METHODS set_data IMPORTING create_table_copy TYPE abap_bool DEFAULT 'X' CHANGING data_table TYPE STANDARD TABLE RAISING cx_salv_no_new_data_allowed.
     "! @parameter layout_name | <p class="shorttext synchronized" lang="en">Data must be assigned with <em>SET_DATA</em> before display</p>
     METHODS display_data IMPORTING layout_name TYPE slis_vari OPTIONAL.
+
     METHODS get_layout_from_f4_selection RETURNING VALUE(retval) TYPE slis_vari.
     METHODS set_fixed_column_text IMPORTING column TYPE lvc_fname text TYPE scrtext_l output_length TYPE lvc_outlen OPTIONAL.
     METHODS set_column_ddic_ref IMPORTING column TYPE lvc_fname table TYPE lvc_tname field TYPE lvc_fname.
@@ -28,9 +32,16 @@ CLASS zcl_zabap_salv_report DEFINITION
     METHODS set_column_as_hotspot IMPORTING column TYPE lvc_fname.
 
   PROTECTED SECTION.
+    DATA layout_key TYPE salv_s_layout_key.
+    DATA progress_text TYPE string.
     DATA data_table_ref TYPE REF TO data.
 
     METHODS get_ref_to_cell_value IMPORTING !row TYPE salv_de_row column TYPE salv_de_column RETURNING VALUE(retval) TYPE REF TO data RAISING cx_sy_tab_range_out_of_bounds.
+    METHODS initialise_alv IMPORTING container TYPE REF TO cl_gui_container OPTIONAL RAISING cx_salv_msg.
+    METHODS enable_layouts.
+    METHODS set_handlers.
+    METHODS format_alv_table IMPORTING layout_name TYPE slis_vari OPTIONAL.
+
     "EVENT HANDLERS
     "! <p class="shorttext synchronized" lang="en">Redefine when inheriting from <em>zcl_zabap_salv_report</em></p>
     METHODS on_before_salv_function FOR EVENT before_salv_function OF cl_salv_events_table IMPORTING e_salv_function.
@@ -49,20 +60,13 @@ CLASS zcl_zabap_salv_report DEFINITION
     "EVENTS HANDLERS END
 
   PRIVATE SECTION.
-    DATA layout_key TYPE salv_s_layout_key.
-    DATA progress_text TYPE string.
-
-    METHODS initialise_alv RAISING cx_salv_msg.
-    METHODS enable_layouts.
-    METHODS set_handlers.
-    METHODS format_alv_table IMPORTING layout_name TYPE slis_vari OPTIONAL.
 ENDCLASS.
 
 
 CLASS zcl_zabap_salv_report IMPLEMENTATION.
   METHOD constructor.
-    layout_key = VALUE salv_s_layout_key( report = report_id handle = handle ).
-    initialise_alv( ).
+    me->layout_key = COND #( WHEN layout_key IS SUPPLIED THEN layout_key ELSE VALUE #( report = report_id handle = handle ) ).
+    initialise_alv( container ).
     enable_layouts( ).
     set_handlers( ).
   ENDMETHOD.
@@ -86,9 +90,7 @@ CLASS zcl_zabap_salv_report IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_layout_from_f4_selection.
-    retval = cl_salv_layout_service=>f4_layouts(
-    s_key = layout_key
-    restrict = if_salv_c_layout=>restrict_none )-layout.
+    retval = cl_salv_layout_service=>f4_layouts( s_key = layout_key restrict = if_salv_c_layout=>restrict_none )-layout.
   ENDMETHOD.
 
   METHOD get_ref_to_cell_value.
@@ -121,7 +123,7 @@ CLASS zcl_zabap_salv_report IMPLEMENTATION.
     CREATE DATA data_table_ref TYPE TABLE OF t_dummy.
     FIELD-SYMBOLS <data_table> TYPE STANDARD TABLE.
     ASSIGN data_table_ref->* TO <data_table>.
-    cl_salv_table=>factory( IMPORTING r_salv_table = alv_table CHANGING t_table = <data_table> ).
+    cl_salv_table=>factory( EXPORTING r_container = container IMPORTING r_salv_table = alv_table CHANGING t_table = <data_table> ).
   ENDMETHOD.
 
   METHOD on_added_function.
