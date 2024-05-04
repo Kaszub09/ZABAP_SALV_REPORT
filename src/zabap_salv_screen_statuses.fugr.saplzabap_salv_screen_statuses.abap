@@ -1,8 +1,8 @@
 *******************************************************************
 *   System-defined Include-files.                                 *
 *******************************************************************
-  INCLUDE LZABAP_SALV_SCREEN_STATUSESTOP.    " Global Declarations
-  INCLUDE LZABAP_SALV_SCREEN_STATUSESUXX.    " Function Modules
+  INCLUDE lzabap_salv_screen_statusestop.    " Global Declarations
+  INCLUDE lzabap_salv_screen_statusesuxx.    " Function Modules
 
 *******************************************************************
 *   User-defined Include-files (if necessary).                    *

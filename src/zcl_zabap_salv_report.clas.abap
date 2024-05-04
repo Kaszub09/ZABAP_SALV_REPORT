@@ -92,7 +92,7 @@ CLASS zcl_zabap_salv_report IMPLEMENTATION.
     format_alv_table( layout_name ).
     IF popup_position IS SUPPLIED.
       alv_table->set_screen_popup( start_column = popup_position-start_column end_column = popup_position-end_column
-                                   start_line = popup_position-start_line end_line = popup_position-end_line  ).
+                                   start_line = popup_position-start_line end_line = popup_position-end_line ).
     ENDIF.
     alv_table->display( ).
   ENDMETHOD.
