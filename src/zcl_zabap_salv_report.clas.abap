@@ -3,6 +3,23 @@ CLASS zcl_zabap_salv_report DEFINITION
  CREATE PUBLIC.
 
   PUBLIC SECTION.
+    TYPES:
+      BEGIN OF t_popup_position,
+        start_column TYPE i,
+        end_column   TYPE i,
+        start_line   TYPE i,
+        end_line     TYPE i,
+      END OF t_popup_position.
+
+    CONSTANTS:
+      "! Can be used in <em>DISPLAY_DATA</em> function
+      BEGIN OF c_default_popup_position,
+        start_column TYPE i VALUE 1,
+        end_column   TYPE i VALUE 192,
+        start_line   TYPE i VALUE 1,
+        end_line     TYPE i VALUE 32,
+      END OF c_default_popup_position.
+
     DATA alv_table TYPE REF TO cl_salv_table READ-ONLY.
 
     "! @parameter layout_key | <p class="shorttext synchronized" lang="en">Needed for saving/displaying layouts</p>
@@ -19,9 +36,9 @@ CLASS zcl_zabap_salv_report DEFINITION
     "! ...function. E.g. you had <em>DATA(data_table) = ...</em> inside method/form before calling this function with data_table and not calling <em>display_data</em> before exiting method/form.
     "! @parameter data_table | <p class="shorttext synchronized" lang="en">Table with data to display</p>
     METHODS set_data IMPORTING create_table_copy TYPE abap_bool DEFAULT 'X' CHANGING data_table TYPE STANDARD TABLE RAISING cx_salv_no_new_data_allowed.
-    "! @parameter layout_name | <p class="shorttext synchronized" lang="en">Data must be assigned with <em>SET_DATA</em> before display</p>
-    METHODS display_data IMPORTING layout_name TYPE slis_vari OPTIONAL.
-
+    "! <p class="shorttext synchronized" lang="en">Data must be assigned with <em>SET_DATA</em> before display</p>
+    "! @parameter popup_position | <p class="shorttext synchronized" lang="en">Can't be used with container. Fill to display table as popup</p>
+    METHODS display_data IMPORTING popup_position TYPE t_popup_position OPTIONAL layout_name TYPE slis_vari OPTIONAL.
     METHODS get_layout_from_f4_selection RETURNING VALUE(retval) TYPE slis_vari.
     METHODS set_fixed_column_text IMPORTING column TYPE lvc_fname text TYPE scrtext_l output_length TYPE lvc_outlen OPTIONAL.
     METHODS set_column_ddic_ref IMPORTING column TYPE lvc_fname table TYPE lvc_tname field TYPE lvc_fname.
@@ -36,7 +53,7 @@ CLASS zcl_zabap_salv_report DEFINITION
     DATA progress_text TYPE string.
     DATA data_table_ref TYPE REF TO data.
 
-    METHODS get_ref_to_cell_value IMPORTING !row TYPE salv_de_row column TYPE salv_de_column RETURNING VALUE(retval) TYPE REF TO data RAISING cx_sy_tab_range_out_of_bounds.
+    METHODS get_ref_to_cell_value IMPORTING row TYPE salv_de_row column TYPE salv_de_column RETURNING VALUE(retval) TYPE REF TO data RAISING cx_sy_tab_range_out_of_bounds.
     METHODS initialise_alv IMPORTING container TYPE REF TO cl_gui_container OPTIONAL RAISING cx_salv_msg.
     METHODS enable_layouts.
     METHODS set_handlers.
@@ -73,6 +90,10 @@ CLASS zcl_zabap_salv_report IMPLEMENTATION.
 
   METHOD display_data.
     format_alv_table( layout_name ).
+    IF popup_position IS SUPPLIED.
+      alv_table->set_screen_popup( start_column = popup_position-start_column end_column = popup_position-end_column
+                                   start_line = popup_position-start_line end_line = popup_position-end_line  ).
+    ENDIF.
     alv_table->display( ).
   ENDMETHOD.
 
@@ -123,7 +144,13 @@ CLASS zcl_zabap_salv_report IMPLEMENTATION.
     CREATE DATA data_table_ref TYPE TABLE OF t_dummy.
     FIELD-SYMBOLS <data_table> TYPE STANDARD TABLE.
     ASSIGN data_table_ref->* TO <data_table>.
-    cl_salv_table=>factory( EXPORTING r_container = container IMPORTING r_salv_table = alv_table CHANGING t_table = <data_table> ).
+
+    "The code inside factory checks whether container was supplied (even if emtpy) and blocks popup in such case
+    IF container IS BOUND.
+      cl_salv_table=>factory( EXPORTING r_container = container IMPORTING r_salv_table = alv_table CHANGING t_table = <data_table> ).
+    ELSE.
+      cl_salv_table=>factory( IMPORTING r_salv_table = alv_table CHANGING t_table = <data_table> ).
+    ENDIF.
   ENDMETHOD.
 
   METHOD on_added_function.
