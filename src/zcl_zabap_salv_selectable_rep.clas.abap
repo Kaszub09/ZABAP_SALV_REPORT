@@ -23,7 +23,6 @@ CLASS zcl_zabap_salv_selectable_rep DEFINITION
 ENDCLASS.
 
 
-
 CLASS zcl_zabap_salv_selectable_rep IMPLEMENTATION.
   METHOD constructor.
     super->constructor( container = container report_id = report_id handle = handle ).
@@ -68,9 +67,5 @@ CLASS zcl_zabap_salv_selectable_rep IMPLEMENTATION.
         alv_table->close_screen( ).
 
     ENDCASE.
-
   ENDMETHOD.
-
-
-
 ENDCLASS.
