@@ -22,12 +22,10 @@ CLASS zcl_zabap_salv_report DEFINITION
 
     DATA alv_table TYPE REF TO cl_salv_table READ-ONLY.
 
-    "! @parameter layout_key | <p class="shorttext synchronized" lang="en">Needed for saving/displaying layouts</p>
-    "! @parameter container | <p class="shorttext synchronized" lang="en">Usually instance of CL_GUI_CUSTOM_CONTAINER if needed</p>
-    "! @parameter report_id | <p class="shorttext synchronized" lang="en">Left for backwards compatibility. Use layout_key parameter.</p>
-    "! @parameter handle | <p class="shorttext synchronized" lang="en">Left for backwards compatibility. Use layout_key parameter.</p>
-    METHODS constructor IMPORTING layout_key TYPE salv_s_layout_key OPTIONAL container TYPE REF TO cl_gui_container OPTIONAL
-                                  report_id TYPE sy-repid OPTIONAL handle TYPE slis_handl OPTIONAL RAISING cx_salv_msg.
+    "! @parameter report_id | <p class="shorttext synchronized" lang="en">Needed for key for saving layouts</p>
+    "! @parameter handle | <p class="shorttext synchronized" lang="en">Needed if you need more than one table inside single report</p>
+    "! @parameter container | <p class="shorttext synchronized" lang="en">Usually instance of CL_GUI_CUSTOM_CONTAINER if needed.</p>
+    METHODS constructor IMPORTING report_id TYPE sy-repid handle TYPE slis_handl OPTIONAL container TYPE REF TO cl_gui_container OPTIONAL RAISING cx_salv_msg.
     "! @parameter text | <p class="shorttext synchronized" lang="en">If left empty last text is displayed</p>
     "! @parameter records_count | <p class="shorttext synchronized" lang="en">Leave 0 to not display progress circle</p>
     METHODS set_progress_bar IMPORTING text TYPE string DEFAULT '' current_record TYPE i DEFAULT 0 records_count TYPE i DEFAULT 0.
@@ -39,6 +37,7 @@ CLASS zcl_zabap_salv_report DEFINITION
     "! <p class="shorttext synchronized" lang="en">Data must be assigned with <em>SET_DATA</em> before display</p>
     "! @parameter popup_position | <p class="shorttext synchronized" lang="en">Can't be used with container. Fill to display table as popup</p>
     METHODS display_data IMPORTING popup_position TYPE t_popup_position OPTIONAL layout_name TYPE slis_vari OPTIONAL.
+
     METHODS get_layout_from_f4_selection RETURNING VALUE(retval) TYPE slis_vari.
     METHODS set_fixed_column_text IMPORTING column TYPE lvc_fname text TYPE scrtext_l output_length TYPE lvc_outlen OPTIONAL.
     METHODS set_column_ddic_ref IMPORTING column TYPE lvc_fname table TYPE lvc_tname field TYPE lvc_fname.
@@ -52,6 +51,7 @@ CLASS zcl_zabap_salv_report DEFINITION
     DATA layout_key TYPE salv_s_layout_key.
     DATA progress_text TYPE string.
     DATA data_table_ref TYPE REF TO data.
+
 
     METHODS get_ref_to_cell_value IMPORTING row TYPE salv_de_row column TYPE salv_de_column RETURNING VALUE(retval) TYPE REF TO data RAISING cx_sy_tab_range_out_of_bounds.
     METHODS initialise_alv IMPORTING container TYPE REF TO cl_gui_container OPTIONAL RAISING cx_salv_msg.
@@ -82,7 +82,7 @@ ENDCLASS.
 
 CLASS zcl_zabap_salv_report IMPLEMENTATION.
   METHOD constructor.
-    me->layout_key = COND #( WHEN layout_key IS SUPPLIED THEN layout_key ELSE VALUE #( report = report_id handle = handle ) ).
+    me->layout_key = VALUE #( report = report_id handle = handle ).
     initialise_alv( container ).
     enable_layouts( ).
     set_handlers( ).
@@ -254,4 +254,5 @@ CLASS zcl_zabap_salv_report IMPLEMENTATION.
     DATA(col) = alv_table->get_columns( )->get_column( column ).
     CALL METHOD col->('SET_CELL_TYPE') EXPORTING value = if_salv_c_cell_type=>hotspot.
   ENDMETHOD.
+
 ENDCLASS.
