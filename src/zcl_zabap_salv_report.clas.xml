@@ -13,6 +13,11 @@
    </VSEOCLASS>
    <DESCRIPTIONS>
     <SEOCOMPOTX>
+     <CMPNAME>DISPLAY_DATA</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Data must be assigned with &lt;em&gt;SET_DATA&lt;/em&gt; before display</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
      <CMPNAME>ON_ADDED_FUNCTION</CMPNAME>
      <LANGU>E</LANGU>
      <DESCRIPT>Redefine when inheriting from &lt;em&gt;zcl_zabap_salv_report&lt;/em&gt;</DESCRIPT>
@@ -55,10 +60,16 @@
    </DESCRIPTIONS>
    <DESCRIPTIONS_SUB>
     <SEOSUBCOTX>
+     <CMPNAME>DISPLAY_DATA</CMPNAME>
+     <SCONAME>POPUP_POSITION</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Can&apos;t be used with container. Fill to display table as popup</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
      <CMPNAME>SET_DATA</CMPNAME>
      <SCONAME>CREATE_TABLE_COPY</SCONAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Set abap_true if table is freed from memory after this f...</DESCRIPT>
+     <DESCRIPT>Set abap_true if table is freed from memory after this...</DESCRIPT>
     </SEOSUBCOTX>
     <SEOSUBCOTX>
      <CMPNAME>SET_DATA</CMPNAME>
