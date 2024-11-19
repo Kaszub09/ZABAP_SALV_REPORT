@@ -3,3 +3,6 @@ Class for easy creation of SAP report using CL_SALV_TABLE. Used in another ZABAP
 
 # Instalation 
 via  https://github.com/abapGit/abapGit
+
+# Successor
+https://github.com/Kaszub09/abapEasyALV
